@@ -33,3 +33,25 @@
   <button mat-raised-button (click)="onUpdateName(name)">Change Name</button>
   <p><strong>Your Name Is : </strong>{{ userName() }}</p>
 </div>
+<hr />
+<div class="container">
+  <h2>Update Signal With Reference Value (avoid mutation)</h2>
+  <strong>The Sequence Is :</strong>
+  <br />
+  <p>{{ sequence().join(" , ") }}</p>
+  <button mat-raised-button (click)="onIncrementSequence()">
+    Increment Sequence
+  </button>
+</div>
+<hr />
+<div class="container">
+  <h2>Use a ReadOnly Signal (Computed)</h2>
+  <ul>
+    <li><strong>Counter : </strong>{{ counterTwo() }}</li>
+    <li><strong>10xCounter : </strong>{{ counterTwo10x() }}</li>
+    <li><strong>100xCounter : </strong>{{ counterTwo100x() }}</li>
+  </ul>
+  <button mat-raised-button (click)="onIncrementCounterTwo()">
+    Increment Counter
+  </button>
+</div>

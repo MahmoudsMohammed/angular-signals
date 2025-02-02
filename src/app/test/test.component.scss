@@ -30,26 +30,32 @@ form {
     font-size: 13px;
     text-align: start;
   }
- 
 }
 
- input,.name {
-    font-size: 15px;
-    width: 70%;
-    padding: 8px 10px;
-    margin: 5px 0 15px;
-    border: none;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    &:focus {
-      outline: none;
-    }
-    &[type="submit"] {
-      width: 150px;
-      background-color: #ccc;
-      cursor: pointer;
-    }
+input,
+.name {
+  font-size: 15px;
+  width: 70%;
+  padding: 8px 10px;
+  margin: 5px 0 15px;
+  border: none;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  &:focus {
+    outline: none;
   }
+  &[type="submit"] {
+    width: 150px;
+    background-color: #ccc;
+    cursor: pointer;
+  }
+}
+
+ul {
+  li {
+    margin-bottom: 15px;
+  }
+}
