@@ -1,0 +1,22 @@
+.container {
+  width: 80%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  button {
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    &:first-of-type {
+      margin-right: 10px;
+      background-color: green;
+    }
+    &:last-of-type {
+      background-color: tomato;
+    }
+  }
+}
