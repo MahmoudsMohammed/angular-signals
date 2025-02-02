@@ -24,11 +24,11 @@ type userData = {
 @Component({
   selector: 'test',
   imports: [MatButtonModule, ReactiveFormsModule, UpperCasePipe],
-  templateUrl: './test.component.html',
-  styleUrl: './test.component.scss',
+  templateUrl: './documentation.component.html',
+  styleUrl: './documentation.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TestComponent implements OnInit {
+export class DocumentationComponent implements OnInit {
   counter = signal<number>(0);
   dataForm!: FormGroup;
   userData = signal<userData>({ name: 'mahmoud', age: 25, gender: 'male' });

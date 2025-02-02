@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { ResourceDemoComponent } from './resource-demo/resource-demo.component';
 import { LinkedSignalDemoComponent } from './linked-signal/linked-signal-demo.component';
-import { TestComponent } from './test/test.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 export const routes: Routes = [
   {
@@ -28,11 +28,11 @@ export const routes: Routes = [
     component: ResourceDemoComponent,
   },
   {
-    path: 'test',
-    component: TestComponent,
+    path: 'documentation',
+    component: DocumentationComponent,
   },
   {
     path: '**',
-    redirectTo: 'test',
+    redirectTo: '/',
   },
 ];
