@@ -1,10 +1,35 @@
 <div class="container">
+  <h2>Example For Update API</h2>
   <div class="actions">
     <button mat-raised-button (click)="onIncrement()">Increment</button>
     <button mat-raised-button (click)="onDecrement()">Decrement</button>
   </div>
   <p><strong>Counter : </strong>{{ counter() }}</p>
 </div>
-
-<hr>
-
+<hr />
+<div class="container info">
+  <h2>Example For Update & Set API with Reference Value</h2>
+  <form [formGroup]="dataForm" (ngSubmit)="onSaveData()">
+    <label for="name">Name </label>
+    <input type="text" name="name" id="name" formControlName="name" />
+    <label for="age">Age </label>
+    <input type="number" name="age" id="age" formControlName="age" />
+    <label for="gender">Gender</label>
+    <input type="text" name="gender" id="gender" formControlName="gender" />
+    <input type="submit" value="Save" [disabled]="dataForm.invalid" />
+  </form>
+  @if(userData()){
+  <ul>
+    <li><strong>Name : </strong>{{ userData().name | uppercase }}</li>
+    <li><strong>Age : </strong>{{ userData().age }}</li>
+    <li><strong>Gender : </strong>{{ userData().gender | uppercase }}</li>
+  </ul>
+  }
+</div>
+<hr />
+<div class="container">
+  <h2>Read Only Signal</h2>
+  <input type="text" class="name" #name />
+  <button mat-raised-button (click)="onUpdateName(name)">Change Name</button>
+  <p><strong>Your Name Is : </strong>{{ userName() }}</p>
+</div>
