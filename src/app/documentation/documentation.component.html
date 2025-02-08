@@ -58,9 +58,14 @@
 <hr />
 <div class="container">
   <h2>Practice On Effect API & Clean Up Function</h2>
-  <button mat-raised-button (click)="onIncrementEffect()">
-    Increment Counter
-  </button>
+  <div style="display: flex; gap: 20px; align-items: center">
+    <button mat-raised-button (click)="onIncrementEffect()">
+      Increment Counter
+    </button>
+    <button mat-raised-button (click)="onDestroyEffect()">
+      Manual Destroy Effect
+    </button>
+  </div>
   <p><strong>Counter Value :</strong>{{ counterEffect() }}</p>
   <p><strong>Effect :</strong>{{ effectStatement }}</p>
 </div>

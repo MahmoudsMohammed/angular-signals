@@ -4,6 +4,7 @@ import {
   Component,
   computed,
   effect,
+  EffectRef,
   ElementRef,
   inject,
   Injector,
@@ -48,14 +49,16 @@ export class DocumentationComponent implements OnInit {
   effectStatement: string = '10 Effect Happen';
 
   injectionContext = inject(Injector);
+  effectRef!: EffectRef;
 
   constructor() {}
 
   makeEffect() {
-    effect(
+    this.effectRef = effect(
       () => {
         this.effectStatement = this.counterEffect() + ' Effect Happen';
         console.log('Effect Counter Value Is => ', this.counterEffect());
+        // can update value of any not source signal & avoid update source to not get into infinite loop
         this.counterTwo.update((value) => ++value);
       },
       {
@@ -112,5 +115,9 @@ export class DocumentationComponent implements OnInit {
 
   onIncrementEffect() {
     this.counterEffect.update((value) => ++value);
+  }
+
+  onDestroyEffect() {
+    this.effectRef.destroy();
   }
 }
