@@ -55,11 +55,22 @@ export class DocumentationComponent implements OnInit {
 
   makeEffect() {
     this.effectRef = effect(
-      () => {
+      (onCleanup) => {
+        // direct invocate source signal in the body to link
         this.effectStatement = this.counterEffect() + ' Effect Happen';
-        console.log('Effect Counter Value Is => ', this.counterEffect());
+        const interval = setInterval(() => {
+          console.log('From The Value => ', this.counterEffect());
+        }, 3000);
+
         // can update value of any not source signal & avoid update source to not get into infinite loop
         this.counterTwo.update((value) => ++value);
+
+        // clean up to define the call back function to free resources
+        // call between each effect & before the destroy
+        onCleanup(() => {
+          clearInterval(interval);
+          console.log('Before Clean Up');
+        });
       },
       {
         // to define the injection context for the effect so auto destroy when this
