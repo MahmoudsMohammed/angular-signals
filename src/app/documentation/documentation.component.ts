@@ -3,7 +3,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   ElementRef,
+  inject,
+  Injector,
   OnInit,
   signal,
 } from '@angular/core';
@@ -41,8 +44,30 @@ export class DocumentationComponent implements OnInit {
   counterTwo100x = computed(() => {
     return this.counterTwo10x() * 10;
   });
+  counterEffect = signal<number>(0);
+  effectStatement: string = '10 Effect Happen';
+
+  injectionContext = inject(Injector);
+
+  constructor() {}
+
+  makeEffect() {
+    effect(
+      () => {
+        this.effectStatement = this.counterEffect() + ' Effect Happen';
+        console.log('Effect Counter Value Is => ', this.counterEffect());
+        this.counterTwo.update((value) => ++value);
+      },
+      {
+        // to define the injection context for the effect so auto destroy when this
+        // context destroyed so avoid the memory leak
+        injector: this.injectionContext,
+      }
+    );
+  }
 
   ngOnInit(): void {
+    this.makeEffect();
     this.dataForm = new FormGroup({
       name: new FormControl(null, Validators.required),
       age: new FormControl(0, [
@@ -83,5 +108,9 @@ export class DocumentationComponent implements OnInit {
 
   onIncrementCounterTwo() {
     this.counterTwo.update((value) => value + 1);
+  }
+
+  onIncrementEffect() {
+    this.counterEffect.update((value) => ++value);
   }
 }
