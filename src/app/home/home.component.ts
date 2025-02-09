@@ -32,10 +32,18 @@ export class HomeComponent implements OnInit {
   // coursesFetchService = inject(CoursesServiceWithFetch);
   coursesService = inject(CoursesService);
   courses = signal<Course[]>([]);
+  beginnerCourses = computed(() => {
+    return this.courses().filter((course) => course.category === 'BEGINNER');
+  });
+  advancedCourses = computed(() => {
+    return this.courses().filter((course) => course.category === 'ADVANCED');
+  });
 
   constructor() {
     effect(() => {
       console.log('The Courses Length Is =>', this.courses().length);
+      console.log('Beginner =>', this.beginnerCourses());
+      console.log('Advanced =>', this.advancedCourses());
     });
   }
 
