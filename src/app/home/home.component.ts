@@ -43,7 +43,11 @@ export class HomeComponent implements OnInit {
   }
 
   async getAllCourses() {
-    const courses = await this.coursesFetchService.getAllCourses();
-    this.courses.set(courses);
+    try {
+      const courses = await this.coursesFetchService.getAllCourses();
+      this.courses.set(courses);
+    } catch (err) {
+      alert('There Is Some Error Please Try Later ;)');
+    }
   }
 }
