@@ -29,7 +29,8 @@ import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  coursesFetchService = inject(CoursesServiceWithFetch);
+  // coursesFetchService = inject(CoursesServiceWithFetch);
+  coursesService = inject(CoursesService);
   courses = signal<Course[]>([]);
 
   constructor() {
@@ -41,13 +42,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCourses();
   }
-
   async getAllCourses() {
-    try {
-      const courses = await this.coursesFetchService.getAllCourses();
-      this.courses.set(courses);
-    } catch (err) {
-      alert('There Is Some Error Please Try Later ;)');
-    }
+    const courses = await this.coursesService.getAllCourses();
+    this.courses.set(courses);
   }
 }
