@@ -40,11 +40,11 @@ export class HomeComponent implements OnInit {
   });
 
   constructor() {
-    effect(() => {
-      console.log('The Courses Length Is =>', this.courses().length);
-      console.log('Beginner =>', this.beginnerCourses());
-      console.log('Advanced =>', this.advancedCourses());
-    });
+    // effect(() => {
+    //   console.log('The Courses Length Is =>', this.courses().length);
+    //   console.log('Beginner =>', this.beginnerCourses());
+    //   console.log('Advanced =>', this.advancedCourses());
+    // });
   }
 
   ngOnInit(): void {

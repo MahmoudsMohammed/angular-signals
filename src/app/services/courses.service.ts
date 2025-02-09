@@ -15,9 +15,7 @@ export class CoursesService {
     const courses$ = this.http
       .get<GetCoursesResponse>(`${this.env.apiRoot}/courses`)
       .pipe(
-        tap((data) => console.log(data)),
         map((data: GetCoursesResponse) => data.courses),
-        tap((data) => console.log(data)),
         catchError((err) => {
           alert('There Is Some Error Please Try Later ;)');
           return throwError(() => err);
