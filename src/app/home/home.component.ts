@@ -39,19 +39,13 @@ export class HomeComponent implements OnInit {
     return this.courses().filter((course) => course.category === 'ADVANCED');
   });
 
-  constructor() {
-    // effect(() => {
-    //   console.log('The Courses Length Is =>', this.courses().length);
-    //   console.log('Beginner =>', this.beginnerCourses());
-    //   console.log('Advanced =>', this.advancedCourses());
-    // });
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.getAllCourses();
   }
   async getAllCourses() {
     const courses = await this.coursesService.getAllCourses();
-    this.courses.set(courses);
+    this.courses.set(courses.sort(sortCoursesBySeqNo));
   }
 }
