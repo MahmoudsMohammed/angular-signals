@@ -26,4 +26,26 @@ export class CoursesService {
 
     return courses;
   }
+
+  async addNewCourse(course: Partial<Course>): Promise<Course> {
+    // with http client no need to set content type or convert the body => json is default
+    const request$ = this.http.post<Course>(
+      `${this.env.apiRoot}/courses`,
+      course
+    );
+
+    return firstValueFrom(request$);
+  }
+
+  async editCourse(id: string, changes: Partial<Course>): Promise<Course> {
+    const request$ = this.http.get<Course>(`${this.env.apiRoot}/courses/${id}`);
+    return firstValueFrom(request$);
+  }
+
+  async deleteCourse(id: string): Promise<any> {
+    const request$ = this.http.delete<Course>(
+      `${this.env.apiRoot}/courses/${id}`
+    );
+    return firstValueFrom(request$);
+  }
 }
