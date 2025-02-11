@@ -1,4 +1,4 @@
-import { Component, effect, inject, input } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Course } from '../models/course.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,6 +16,7 @@ export class CoursesCardListComponent {
     alias: 'data',
   });
   dialog = inject(MatDialog);
+  updatedCourse = output<Course>();
   constructor() {
     effect(() => {
       console.log(this.courses());
@@ -28,8 +29,7 @@ export class CoursesCardListComponent {
       title: 'Update The Course',
       course: course,
     });
-
-    console.log(data);
+    this.updatedCourse.emit(data);
   }
 }
 

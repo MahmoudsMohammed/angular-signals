@@ -48,4 +48,11 @@ export class HomeComponent implements OnInit {
     const courses = await this.coursesService.getAllCourses();
     this.courses.set(courses.sort(sortCoursesBySeqNo));
   }
+
+  onCoursesUpdated($event: Course) {
+    const newCourses = this.courses().map((course) =>
+      course.id === $event.id ? $event : course
+    );
+    this.courses.set(newCourses);
+  }
 }

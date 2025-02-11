@@ -7,11 +7,17 @@
 
   <mat-tab-group>
     <mat-tab label="Beginners">
-      <courses-card-list [data]="beginnerCourses()" />
+      <courses-card-list
+        [data]="beginnerCourses()"
+        (updatedCourse)="onCoursesUpdated($event)"
+      />
     </mat-tab>
 
     <mat-tab label="Advanced">
-      <courses-card-list [data]="advancedCourses()" />
+      <courses-card-list
+        [data]="advancedCourses()"
+        (updatedCourse)="onCoursesUpdated($event)"
+      />
     </mat-tab>
   </mat-tab-group>
 </div>
