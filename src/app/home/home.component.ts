@@ -55,4 +55,17 @@ export class HomeComponent implements OnInit {
     );
     this.courses.set(newCourses);
   }
+
+  // call delete courses API which return a promise & wait for it's body
+  // can handle error with a try catch block
+  async onDeleteCourse($event: string) {
+    const data = await this.coursesService.deleteCourse($event);
+    this.deleteCourse(data.id);
+  }
+
+  // reflect the change on UI without call get all courses API
+  deleteCourse(id: string) {
+    const newCourses = this.courses().filter((course) => course.id != id);
+    this.courses.set(newCourses);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Course } from '../models/course.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,16 +12,13 @@ import { openDialog } from '../edit-course-dialog/edit-course-dialog.component';
   styleUrl: './courses-card-list.component.scss',
 })
 export class CoursesCardListComponent {
+  constructor() {}
   courses = input<Course[]>([], {
     alias: 'data',
   });
   dialog = inject(MatDialog);
   updatedCourse = output<Course>();
-  constructor() {
-    effect(() => {
-      console.log(this.courses());
-    });
-  }
+  deleteCourse = output<string>();
 
   async onEdit(course: Course) {
     const data = await openDialog(this.dialog, {
@@ -30,6 +27,10 @@ export class CoursesCardListComponent {
       course: course,
     });
     this.updatedCourse.emit(data);
+  }
+
+  onDelete(id: string) {
+    this.deleteCourse.emit(id);
   }
 }
 
