@@ -21,6 +21,7 @@ import {
   outputFromObservable,
 } from '@angular/core/rxjs-interop';
 import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
+import { openDialog } from '../edit-course-dialog/edit-course-dialog.component';
 
 @Component({
   selector: 'home',
@@ -31,6 +32,7 @@ import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
 export class HomeComponent implements OnInit {
   // coursesFetchService = inject(CoursesServiceWithFetch);
   coursesService = inject(CoursesService);
+  dialog = inject(MatDialog);
   courses = signal<Course[]>([]);
   beginnerCourses = computed(() => {
     return this.courses().filter((course) => course.category === 'BEGINNER');
@@ -67,5 +69,20 @@ export class HomeComponent implements OnInit {
   deleteCourse(id: string) {
     const newCourses = this.courses().filter((course) => course.id != id);
     this.courses.set(newCourses);
+  }
+
+  // open dialog to add a new course
+  async onAddCourse() {
+    const course = await openDialog(this.dialog, {
+      mode: 'create',
+      title: 'Add a new Course',
+    });
+    console.log(course);
+    this.addNewCourse(course);
+  }
+
+  addNewCourse(course: Course) {
+    const courses = [...this.courses(), course];
+    this.courses.set(courses);
   }
 }
