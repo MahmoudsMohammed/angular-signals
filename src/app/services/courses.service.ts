@@ -38,7 +38,10 @@ export class CoursesService {
   }
 
   async editCourse(id: string, changes: Partial<Course>): Promise<Course> {
-    const request$ = this.http.get<Course>(`${this.env.apiRoot}/courses/${id}`);
+    const request$ = this.http.put<Course>(
+      `${this.env.apiRoot}/courses/${id}`,
+      changes
+    );
     return firstValueFrom(request$);
   }
 

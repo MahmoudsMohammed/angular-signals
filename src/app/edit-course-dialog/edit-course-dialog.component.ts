@@ -33,6 +33,7 @@ import { firstValueFrom } from 'rxjs';
 export class EditCourseDialogComponent implements OnInit {
   fb = inject(FormBuilder);
   dialog = inject(MatDialogRef);
+  courseService = inject(CoursesService);
   data: EditCourseDialogData = inject(MAT_DIALOG_DATA);
   courseForm!: FormGroup;
 
@@ -56,6 +57,19 @@ export class EditCourseDialogComponent implements OnInit {
       category: this.data.course?.category,
       iconUrl: this.data.course?.iconUrl,
     });
+  }
+
+  async onSave() {
+    let data: Course;
+    if (this.data.mode === 'update') {
+      data = await this.courseService.editCourse(
+        this.data.course!.id,
+        this.courseForm.value
+      );
+    } else {
+      data = await this.courseService.addNewCourse(this.courseForm.value);
+    }
+    this.dialog.close(data);
   }
 }
 

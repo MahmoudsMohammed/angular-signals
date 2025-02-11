@@ -1,11 +1,4 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  input,
-  output,
-} from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Course } from '../models/course.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,12 +22,14 @@ export class CoursesCardListComponent {
     });
   }
 
-  onEdit(course: Course) {
-    openDialog(this.dialog, {
+  async onEdit(course: Course) {
+    const data = await openDialog(this.dialog, {
       mode: 'update',
       title: 'Update The Course',
       course: course,
     });
+
+    console.log(data);
   }
 }
 
