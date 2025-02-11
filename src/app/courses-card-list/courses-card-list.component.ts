@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 import { Course } from '../models/course.model';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
+import { openDialog } from '../edit-course-dialog/edit-course-dialog.component';
 
 @Component({
   selector: 'courses-card-list',
@@ -21,9 +22,18 @@ export class CoursesCardListComponent {
   courses = input<Course[]>([], {
     alias: 'data',
   });
+  dialog = inject(MatDialog);
   constructor() {
     effect(() => {
       console.log(this.courses());
+    });
+  }
+
+  onEdit(course: Course) {
+    openDialog(this.dialog, {
+      mode: 'update',
+      title: 'Update The Course',
+      course: course,
     });
   }
 }

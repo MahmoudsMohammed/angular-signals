@@ -18,11 +18,14 @@
   img {
     width: 100%;
   }
+  & > div {
+    padding: 0px 20px;
+  }
   ul {
     list-style: none;
     margin: 0;
+    padding: 0;
     text-align: start;
-    padding: 0 20px;
   }
   li {
     display: flex;
@@ -47,7 +50,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px 0px;
+    padding-top: 15px;
     button {
       border: none;
       padding: 8px 25px;

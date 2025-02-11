@@ -4,27 +4,29 @@
     {{ course.title }}
   </h3>
   <img [src]="course.iconUrl" alt="" />
-  <p class="description">
-    {{ course.longDescription }}
-  </p>
-  <ul>
-    <li>
-      <span><mat-icon>category</mat-icon> Category</span>
-      <span>{{ course.category }}</span>
-    </li>
-    <li>
-      <span><mat-icon>play_lesson</mat-icon> Lessons</span>
-      <span>{{ course.lessonsCount }}</span>
-    </li>
-    <li>
-      <span><mat-icon>payments</mat-icon> Price</span>
-      <span>{{ course.price }}$</span>
-    </li>
-  </ul>
-  <div class="actions">
-    <button>View</button>
-    <button>Edit</button>
-    <mat-icon color="warn">delete</mat-icon>
+  <div>
+    <p class="description">
+      {{ course.longDescription }}
+    </p>
+    <ul>
+      <li>
+        <span><mat-icon>category</mat-icon> Category</span>
+        <span>{{ course.category }}</span>
+      </li>
+      <li>
+        <span><mat-icon>play_lesson</mat-icon> Lessons</span>
+        <span>{{ course.lessonsCount }}</span>
+      </li>
+      <li>
+        <span><mat-icon>payments</mat-icon> Price</span>
+        <span>{{ course.price }}$</span>
+      </li>
+    </ul>
+    <div class="actions">
+      <button>View</button>
+      <button (click)="onEdit(course)">Edit</button>
+      <mat-icon color="warn">delete</mat-icon>
+    </div>
   </div>
 </div>
 }
