@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { catchError, firstValueFrom, map, tap, throwError } from 'rxjs';
+import { catchError, delay, firstValueFrom, map, tap, throwError } from 'rxjs';
 import { Course } from '../models/course.model';
 import { GetCoursesResponse } from '../models/get-courses.response';
 
@@ -16,6 +16,7 @@ export class CoursesService {
       .get<GetCoursesResponse>(`${this.env.apiRoot}/courses`)
       .pipe(
         map((data: GetCoursesResponse) => data.courses),
+        delay(1000),
         catchError((err) => {
           alert('There Is Some Error Please Try Later ;)');
           return throwError(() => err);
