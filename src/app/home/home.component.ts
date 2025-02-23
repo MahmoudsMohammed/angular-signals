@@ -33,7 +33,6 @@ import { openDialog } from '../edit-course-dialog/edit-course-dialog.component';
 export class HomeComponent implements OnInit {
   // coursesFetchService = inject(CoursesServiceWithFetch);
   coursesService = inject(CoursesService);
-  LoadingService = inject(LoadingService);
   dialog = inject(MatDialog);
   courses = signal<Course[]>([]);
   beginnerCourses = computed(() => {
@@ -49,9 +48,7 @@ export class HomeComponent implements OnInit {
     this.getAllCourses();
   }
   async getAllCourses() {
-    this.LoadingService.turnOnLoader();
     const courses = await this.coursesService.getAllCourses();
-    this.LoadingService.turnOffLoader();
     this.courses.set(courses.sort(sortCoursesBySeqNo));
   }
 
