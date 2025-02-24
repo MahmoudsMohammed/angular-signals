@@ -1,3 +1,7 @@
+@if(message()?.text){
 <div class="messages-container">
-  <div class="message error">Hello There <mat-icon (click)="onClose()">close</mat-icon></div>
+  <div [class]="'message' + ' ' + message()?.severity">
+    {{ message()?.text }} <mat-icon (click)="onClose()">close</mat-icon>
+  </div>
 </div>
+}

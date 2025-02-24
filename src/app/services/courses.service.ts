@@ -1,10 +1,19 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { catchError, delay, firstValueFrom, map, tap, throwError } from 'rxjs';
+import {
+  catchError,
+  delay,
+  finalize,
+  firstValueFrom,
+  map,
+  tap,
+  throwError,
+} from 'rxjs';
 import { Course } from '../models/course.model';
 import { GetCoursesResponse } from '../models/get-courses.response';
 import { displayLoader } from '../constants/loading.httptokencontext';
+import { MessagesService } from '../messages/messages.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +21,7 @@ import { displayLoader } from '../constants/loading.httptokencontext';
 export class CoursesService {
   env = environment as any;
   http = inject(HttpClient);
+  _messageService = inject(MessagesService);
   async getAllCourses(): Promise<Course[]> {
     const courses$ = this.http
       .get<GetCoursesResponse>(`${this.env.apiRoot}/courses`)
@@ -20,6 +30,9 @@ export class CoursesService {
         catchError((err) => {
           alert('There Is Some Error Please Try Later ;)');
           return throwError(() => err);
+        }),
+        finalize(() => {
+          this._messageService.setMessage('Successfully', 'success');
         })
       );
 
