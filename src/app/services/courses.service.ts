@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { catchError, delay, firstValueFrom, map, tap, throwError } from 'rxjs';
 import { Course } from '../models/course.model';
 import { GetCoursesResponse } from '../models/get-courses.response';
+import { displayLoader } from '../constants/loading.httptokencontext';
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +48,10 @@ export class CoursesService {
 
   async deleteCourse(id: string): Promise<any> {
     const request$ = this.http.delete<Course>(
-      `${this.env.apiRoot}/courses/${id}`
+      `${this.env.apiRoot}/courses/${id}`,
+      {
+        context: new HttpContext().set(displayLoader, false),
+      }
     );
     return firstValueFrom(request$);
   }
