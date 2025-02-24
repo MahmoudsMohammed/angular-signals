@@ -7,11 +7,18 @@
 }
 
 .message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   min-width: 350px;
   padding: 20px;
   position: relative;
   border-radius: 10px;
   font-size: 16px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 
 .message.error {
