@@ -24,15 +24,12 @@ export class CoursesService {
   _messageService = inject(MessagesService);
   async getAllCourses(): Promise<Course[]> {
     const courses$ = this.http
-      .get<GetCoursesResponse>(`${this.env.apiRoot}/courses`)
+      .get<GetCoursesResponse>(`${this.env.apiRoot}/course`)
       .pipe(
         map((data: GetCoursesResponse) => data.courses),
         catchError((err) => {
           alert('There Is Some Error Please Try Later ;)');
           return throwError(() => err);
-        }),
-        finalize(() => {
-          this._messageService.setMessage('Successfully', 'success');
         })
       );
 
