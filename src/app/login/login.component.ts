@@ -5,6 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'login',
@@ -14,16 +15,18 @@ import {
 })
 export class LoginComponent implements OnInit {
   _fb = inject(FormBuilder);
+  _authService = inject(AuthService);
   loginForm!: FormGroup;
 
   ngOnInit(): void {
     this.loginForm = this._fb.group({
       email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required, Validators.minLength(8)]],
+      password: [null, [Validators.required]],
     });
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    const { email, password } = this.loginForm.value;
+    this._authService.login(email, password);
   }
 }
