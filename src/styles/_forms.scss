@@ -1,6 +1,4 @@
-
 @mixin formStyles() {
-
   input {
     margin-left: 5px;
   }
@@ -41,12 +39,12 @@
   .form-actions {
     margin-top: 20px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
   }
 
   .form-actions button {
     text-transform: uppercase;
     margin-right: 10px;
+    padding: 10px 30px;
   }
-
 }
