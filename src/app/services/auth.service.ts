@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -25,6 +25,16 @@ export class AuthService {
     if (USER_STORAGE_KEY in localStorage) {
       this.#userData.set(JSON.parse(localStorage.getItem(USER_STORAGE_KEY)!));
     }
+
+    // effect to store in LS
+    effect(() => {
+      if (this.#userData()) {
+        localStorage.setItem(
+          USER_STORAGE_KEY,
+          JSON.stringify(this.#userData())
+        );
+      }
+    });
   }
 
   async login(email: string, password: string) {
@@ -35,10 +45,11 @@ export class AuthService {
       })
     );
     this.#userData.set(userData);
-    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData));
+    this._router.navigate(['/']);
   }
 
   logout() {
+    this.#userData.set(null);
     localStorage.removeItem(USER_STORAGE_KEY);
     this._router.navigate(['login']);
   }

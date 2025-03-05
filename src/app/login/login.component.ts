@@ -30,6 +30,5 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const { email, password } = this.loginForm.value;
     this._authService.login(email, password);
-    this._router.navigate(['/']);
   }
 }
