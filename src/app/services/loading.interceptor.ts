@@ -6,7 +6,6 @@ import { displayLoader } from '../constants/loading.httptokencontext';
 
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService);
-  console.log(req.context.get(displayLoader));
   if (!req.context.get(displayLoader)) {
     return next(req);
   }

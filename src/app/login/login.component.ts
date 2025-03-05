@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login',
@@ -16,6 +17,7 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent implements OnInit {
   _fb = inject(FormBuilder);
   _authService = inject(AuthService);
+  _router = inject(Router);
   loginForm!: FormGroup;
 
   ngOnInit(): void {
@@ -28,5 +30,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const { email, password } = this.loginForm.value;
     this._authService.login(email, password);
+    this._router.navigate(['/']);
   }
 }

@@ -17,7 +17,7 @@ export type loginData = {
 export class AuthService {
   #userData = signal<User | null>(null);
   user = this.#userData.asReadonly();
-  isLoggedIn = computed(() => !!this.user);
+  isLoggedIn = computed(() => !!this.user());
   _http = inject(HttpClient);
 
   async login(email: string, password: string) {
@@ -27,6 +27,6 @@ export class AuthService {
         password,
       })
     );
-    console.log(userData);
+    this.#userData.set(userData);
   }
 }
