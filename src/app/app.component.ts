@@ -28,6 +28,6 @@ import { AuthService } from './services/auth.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  authService = inject(AuthService);
-  isLogged = this.authService.isLoggedIn;
+  _authService = inject(AuthService);
+  isLogged = this._authService.isLoggedIn;
 }

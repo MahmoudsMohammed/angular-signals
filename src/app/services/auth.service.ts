@@ -1,11 +1,11 @@
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
-const USER_STORAGE_KEY = 'user';
+const USER_STORAGE_KEY: string = 'user';
 export type loginData = {
   email: string;
   password: string;
@@ -19,6 +19,13 @@ export class AuthService {
   user = this.#userData.asReadonly();
   isLoggedIn = computed(() => !!this.user());
   _http = inject(HttpClient);
+  _router = inject(Router);
+
+  constructor() {
+    if (USER_STORAGE_KEY in localStorage) {
+      this.#userData.set(JSON.parse(localStorage.getItem(USER_STORAGE_KEY)!));
+    }
+  }
 
   async login(email: string, password: string) {
     const userData = await firstValueFrom(
@@ -28,5 +35,11 @@ export class AuthService {
       })
     );
     this.#userData.set(userData);
+    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData));
+  }
+
+  logout() {
+    localStorage.removeItem(USER_STORAGE_KEY);
+    this._router.navigate(['login']);
   }
 }
