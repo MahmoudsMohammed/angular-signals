@@ -1,8 +1,8 @@
 @import "../../styles/button";
 @import "../../styles/forms";
 
-@include buttonStyles();
 @include formStyles();
+@include buttonStyles();
 
 .edit-course-form {
   display: flex;

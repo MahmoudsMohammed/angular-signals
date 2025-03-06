@@ -15,9 +15,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CourseCategoryComboboxComponent } from '../course-category-combobox/course-category-combobox.component';
-import { CourseCategory } from '../models/course-category.model';
 import { firstValueFrom } from 'rxjs';
+import { CourseCategoriesComponent } from './components/course-categories/course-categories.component';
 
 @Component({
   selector: 'edit-course-dialog',
@@ -25,7 +24,7 @@ import { firstValueFrom } from 'rxjs';
   imports: [
     LoadingIndicatorComponent,
     ReactiveFormsModule,
-    CourseCategoryComboboxComponent,
+    CourseCategoriesComponent,
   ],
   templateUrl: './edit-course-dialog.component.html',
   styleUrl: './edit-course-dialog.component.scss',
