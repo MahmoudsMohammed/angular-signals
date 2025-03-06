@@ -41,7 +41,10 @@ export class CoursesService {
     // with http client no need to set content type or convert the body => json is default
     const request$ = this.http.post<Course>(
       `${this.env.apiRoot}/courses`,
-      course
+      course,
+      {
+        context: new HttpContext().set(displayLoader, false),
+      }
     );
 
     return firstValueFrom(request$);
@@ -50,7 +53,10 @@ export class CoursesService {
   async editCourse(id: string, changes: Partial<Course>): Promise<Course> {
     const request$ = this.http.put<Course>(
       `${this.env.apiRoot}/courses/${id}`,
-      changes
+      changes,
+      {
+        context: new HttpContext().set(displayLoader, false),
+      }
     );
     return firstValueFrom(request$);
   }

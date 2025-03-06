@@ -1,12 +1,12 @@
 .loader-container {
   width: 100%;
-  height: calc(100% - 64px);
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba($color: #000000, $alpha: 0.4);
-  position: absolute;
-  top: 64px;
+  position: sticky;
+  top: 0px;
   left: 0;
   z-index: 10;
 }
