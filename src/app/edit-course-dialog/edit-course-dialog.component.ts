@@ -35,6 +35,7 @@ export class EditCourseDialogComponent implements OnInit {
   courseService = inject(CoursesService);
   data: EditCourseDialogData = inject(MAT_DIALOG_DATA);
   courseForm!: FormGroup;
+  category = signal<string>('BEGINNER');
 
   ngOnInit(): void {
     this.courseForm = this.fb.group({
@@ -56,10 +57,14 @@ export class EditCourseDialogComponent implements OnInit {
       category: this.data.course?.category,
       iconUrl: this.data.course?.iconUrl,
     });
+    this.category.set(this.data.course?.category ?? 'BEGINNER');
   }
 
   async onSave() {
     let data: Course;
+    this.courseForm.patchValue({
+      category: this.category(),
+    });
     if (this.data.mode === 'update') {
       data = await this.courseService.editCourse(
         this.data.course!.id,

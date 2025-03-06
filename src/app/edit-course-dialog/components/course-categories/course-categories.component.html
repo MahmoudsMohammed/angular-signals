@@ -1,6 +1,6 @@
 <div class="form-control">
-  <label>Course category:</label>
-  <select>
+  <label>{{ label() }}</label>
+  <select [value]="category()" (change)="onCategoryChange($event)">
     <option value="BEGINNER">Beginners</option>
     <option value="INTERMEDIATE">Intermediate</option>
     <option value="ADVANCED">Advanced</option>
