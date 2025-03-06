@@ -78,8 +78,9 @@ export class HomeComponent implements OnInit {
       mode: 'create',
       title: 'Add a new Course',
     });
-    console.log(course);
-    this.addNewCourse(course);
+    if (course) {
+      this.addNewCourse(course);
+    }
   }
 
   addNewCourse(course: Course) {

@@ -26,7 +26,9 @@ export class CoursesCardListComponent {
       title: 'Update The Course',
       course: course,
     });
-    this.updatedCourse.emit(data);
+    if (data) {
+      this.updatedCourse.emit(data);
+    }
   }
 
   onDelete(id: string) {
