@@ -70,4 +70,9 @@ export class CoursesService {
     );
     return firstValueFrom(request$);
   }
+
+  async getCourseData(id: string): Promise<Course> {
+    const request = this.http.get<Course>(`${this.env.apiRoot}/courses/${id}`);
+    return firstValueFrom(request);
+  }
 }

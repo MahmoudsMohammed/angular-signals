@@ -23,7 +23,7 @@
       </li>
     </ul>
     <div class="actions">
-      <button>View</button>
+      <button [routerLink]="['view', course.id]">View</button>
       <button (click)="onEdit(course)">Edit</button>
       <mat-icon color="warn" (click)="onDelete(course.id)">delete</mat-icon>
     </div>
