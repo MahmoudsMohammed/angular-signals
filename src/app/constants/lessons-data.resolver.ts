@@ -10,7 +10,7 @@ export const lessonsDataResolver: ResolveFn<Lesson[] | null> = (
   const courseId = route.paramMap.get('id'),
     _lessonsServices = inject(LessonsService);
   if (courseId) {
-    return _lessonsServices.getLessons(courseId);
+    return _lessonsServices.getLessons({ courseId });
   } else {
     return null;
   }

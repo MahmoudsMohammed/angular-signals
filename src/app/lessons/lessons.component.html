@@ -1,10 +1,25 @@
 <div class="lessons">
   <div class="search">
     <h2>Search Lessons</h2>
-    <input type="text" />
+    <input
+      type="text"
+      #lesson
+      (keyup.enter)="onSearch()"
+      (keyup)="searchQuery.set(lesson.value)"
+    />
     <div class="actions">
-      <button class="">Search</button>
-      <button class="">Reset</button>
+      <button (click)="onSearch()" [disabled]="!searchQuery()">Search</button>
+      <button
+        (click)="[(lesson.value = ''), searchQuery.set('')]"
+        [disabled]="!searchQuery()"
+      >
+        Reset
+      </button>
     </div>
   </div>
+  @if (mode()==='master' ) {
+  <lessons-master [lessons]="lessons()" />
+  }@else {
+  <lesson-detail />
+  }
 </div>

@@ -12,13 +12,16 @@ export class LessonsService {
   env = environment;
   _http = inject(HttpClient);
 
-  async getLessons(courseId?: string, query?: string): Promise<Lesson[]> {
+  async getLessons(body: {
+    courseId?: string;
+    query?: string;
+  }): Promise<Lesson[]> {
     let params = new HttpParams();
-    if (courseId) {
-      params = params.set('courseId', courseId);
+    if (body.courseId) {
+      params = params.set('courseId', body.courseId);
     }
-    if (query) {
-      params = params.set('query', query);
+    if (body.query) {
+      params = params.set('query', body.query);
     }
     const request = this._http
       .get<GetLessonsResponse>(`${this.env.apiRoot}/search-lessons`, {
