@@ -34,4 +34,10 @@ export class LessonsComponent {
     });
     this.lessons.set(lessons);
   }
+
+  onUpdateLesson($event: Lesson) {
+    return this.lessons.update((lessons) =>
+      lessons.map((lesson) => (lesson.id === $event.id ? $event : lesson))
+    );
+  }
 }

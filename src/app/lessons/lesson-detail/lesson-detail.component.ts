@@ -12,6 +12,7 @@ import { MessagesService } from '../../messages/messages.service';
 export class LessonDetailComponent {
   _lessonService = inject(LessonsService);
   lesson = input.required<Lesson | null>();
+  updateLesson = output<Lesson>();
   cancel = output();
 
   async onUpdateTitle(title: string) {
@@ -21,7 +22,6 @@ export class LessonDetailComponent {
         description: title,
       }
     );
-
-    console.log('New Lesson ====> ', newLesson);
+    this.updateLesson.emit(newLesson);
   }
 }

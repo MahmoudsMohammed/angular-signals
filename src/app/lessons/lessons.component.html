@@ -10,7 +10,7 @@
     <div class="actions">
       <button (click)="onSearch()" [disabled]="!searchQuery()">Search</button>
       <button
-        (click)="[(lesson.value = ''), searchQuery.set('')]"
+        (click)="[(lesson.value = ''), searchQuery.set(''), lessons.set([])]"
         [disabled]="!searchQuery()"
       >
         Reset
@@ -23,6 +23,10 @@
     (selectLesson)="[selectedLesson.set($event), mode.set('detail')]"
   />
   }@else {
-  <lesson-detail [lesson]="selectedLesson()" (cancel)="mode.set('master')" />
+  <lesson-detail
+    [lesson]="selectedLesson()"
+    (cancel)="mode.set('master')"
+    (updateLesson)="onUpdateLesson($event)"
+  />
   }
 </div>
