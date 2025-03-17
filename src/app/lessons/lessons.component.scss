@@ -1,51 +1,59 @@
-@import "../../styles/button";
-@import "../../styles/forms";
-
-@include buttonStyles();
-@include formStyles();
-
 .lessons {
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.header h1 {
-  text-align: center;
-}
-
-.search-controls {
   display: flex;
-  flex-direction: row;
   justify-content: center;
-}
+  padding: 30px 15px;
+  .search {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    h2 {
+      margin: 0;
+    }
+    input {
+      width: min(250px, calc(100% - 30px));
+      padding: 5px 10px;
+      border: 1px solid #3f51b5;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+      &:focus {
+        outline: none;
+        width: min(300px, 100%);
+        border-width: 2px;
+      }
+      transition: 0.5s ease-in-out;
+      -webkit-transition: 0.5s ease-in-out;
+      -moz-transition: 0.5s ease-in-out;
+      -ms-transition: 0.5s ease-in-out;
+      -o-transition: 0.5s ease-in-out;
+    }
+    .actions {
+      margin-top: 5px;
+      display: flex;
+      gap: 10px;
+      button {
+        cursor: pointer;
+        padding: 8px 16px;
+        background-color: transparent;
+        color: white;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+      }
+      button:first-of-type {
+        border: 1px solid #3f51b5;
+      }
+      button:last-of-type {
+        border: 1px solid tomato;
+      }
 
-.search {
-  margin-left: 10px;
-}
-
-.table-container {
-  border: 1px solid #2086fc;
-  border-radius: 5px;
-}
-
-.results-table {
-  border-collapse: collapse;
-  width: 100%;
-
-  tr {
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
+    }
   }
-
-  tr:last-child {
-    border-bottom: none;
-  }
-
-  th, td {
-    padding: 10px;
-    text-align: left;
-  }
 }
-
-
-
