@@ -12,4 +12,5 @@ import { MessagesService } from '../../messages/messages.service';
 })
 export class LessonDetailComponent {
   lesson = input.required<Lesson | null>();
+  cancel = output();
 }
