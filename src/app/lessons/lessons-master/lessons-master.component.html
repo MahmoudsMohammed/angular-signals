@@ -1,1 +1,18 @@
-<p>lessons-master works!</p>
+@if(lessons().length > 0){
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Duration</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (lesson of lessons(); track lesson.id) {
+    <tr>
+      <td>{{ lesson.description }}</td>
+      <td>{{ lesson.duration }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
+}
