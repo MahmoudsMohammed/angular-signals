@@ -4,9 +4,13 @@
 @include buttonStyles();
 @include formStyles();
 
+:host{
+  display: block;
+  width: 100%;
+}
 
 .lesson-detail {
-  max-width: 600px;
+  width: min(600px, 100%);
   margin: 0 auto;
 }
 

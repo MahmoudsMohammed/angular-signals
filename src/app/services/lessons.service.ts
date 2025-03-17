@@ -31,4 +31,12 @@ export class LessonsService {
 
     return firstValueFrom(request);
   }
+
+  async updateLesson(lessonId: string, body: Partial<Lesson>): Promise<Lesson> {
+    const request$ = this._http.put<Lesson>(
+      `${this.env.apiRoot}/lessons/${lessonId}`,
+      body
+    );
+    return firstValueFrom(request$);
+  }
 }
