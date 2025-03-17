@@ -18,8 +18,11 @@
     </div>
   </div>
   @if (mode()==='master' ) {
-  <lessons-master [lessons]="lessons()" />
+  <lessons-master
+    [lessons]="lessons()"
+    (selectLesson)="[selectedLesson.set($event), mode.set('detail')]"
+  />
   }@else {
-  <lesson-detail />
+  <lesson-detail [lesson]="selectedLesson()" />
   }
 </div>

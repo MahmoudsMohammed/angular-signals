@@ -19,4 +19,10 @@ table {
     background-color: #eaeaea;
     color: #3f51b5;
   }
+  tbody > tr {
+    cursor: pointer;
+    &:hover {
+      background-color: gray;
+    }
+  }
 }

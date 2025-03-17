@@ -8,7 +8,7 @@
   </thead>
   <tbody>
     @for (lesson of lessons(); track lesson.id) {
-    <tr>
+    <tr (click)="selectLesson.emit(lesson)">
       <td>{{ lesson.description }}</td>
       <td>{{ lesson.duration }}</td>
     </tr>

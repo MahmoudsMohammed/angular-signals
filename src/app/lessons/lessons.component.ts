@@ -26,6 +26,7 @@ export class LessonsComponent {
   @ViewChild('lesson') lessonDecorator!: ElementRef;
   lessonSignal = viewChild.required<ElementRef>('lesson');
   searchQuery = signal<string>('');
+  selectedLesson = signal<Lesson | null>(null);
 
   async onSearch() {
     let lessons = await this._lessonsService.getLessons({
