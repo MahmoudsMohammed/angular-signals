@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   DoCheck,
   effect,
   inject,
@@ -16,12 +17,20 @@ import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { CoursesCardListComponent } from '../courses-card-list/courses-card-list.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MessagesService } from '../messages/messages.service';
-import { catchError, finalize, from, Subscription, throwError } from 'rxjs';
+import {
+  catchError,
+  finalize,
+  from,
+  interval,
+  Subscription,
+  throwError,
+} from 'rxjs';
 import {
   toObservable,
   toSignal,
   outputToObservable,
   outputFromObservable,
+  takeUntilDestroyed,
 } from '@angular/core/rxjs-interop';
 import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
 import { openDialog } from '../edit-course-dialog/edit-course-dialog.component';
@@ -116,5 +125,16 @@ export class HomeComponent implements OnInit, DoCheck {
     setTimeout(() => {
       this.numbers.set(7);
     }, 1000);
+  }
+
+  interval$ = interval(1000);
+  destroyRef = inject(DestroyRef);
+  onSubscribe() {
+    this.interval$
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => console.log('Subscribe to Interval Completed'))
+      )
+      .subscribe(console.log);
   }
 }
