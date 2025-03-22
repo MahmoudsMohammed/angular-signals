@@ -4,6 +4,12 @@
     <button class="btn" (click)="onAddCourse()">Add Course</button>
   </header>
 
+  <div class="actions">
+    <button class="btn" (click)="onToObservable()">toObservable</button>
+    <button class="btn" (click)="onToSignal()">toSignal</button>
+    <span>Numbers : {{ numbers() }}</span>
+  </div>
+
   <mat-tab-group>
     <mat-tab label="Beginners">
       <courses-card-list

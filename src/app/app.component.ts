@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DoCheck,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatSidenav, MatSidenavContainer } from '@angular/material/sidenav';
 import { MatListItem, MatNavList } from '@angular/material/list';
@@ -26,8 +32,13 @@ import { AuthService } from './services/auth.service';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements DoCheck {
   _authService = inject(AuthService);
   isLogged = this._authService.isLoggedIn;
+
+  ngDoCheck(): void {
+    // console.log('=== Change Detection Cycle Start From App Component ===');
+  }
 }

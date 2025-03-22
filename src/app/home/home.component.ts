@@ -1,7 +1,9 @@
 import { LoadingService } from './../loading/loading.service';
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
+  DoCheck,
   effect,
   inject,
   Injector,
@@ -14,7 +16,7 @@ import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { CoursesCardListComponent } from '../courses-card-list/courses-card-list.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MessagesService } from '../messages/messages.service';
-import { catchError, from, throwError } from 'rxjs';
+import { catchError, finalize, from, Subscription, throwError } from 'rxjs';
 import {
   toObservable,
   toSignal,
@@ -29,8 +31,9 @@ import { openDialog } from '../edit-course-dialog/edit-course-dialog.component';
   imports: [MatTabGroup, MatTab, CoursesCardListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, DoCheck {
   // coursesFetchService = inject(CoursesServiceWithFetch);
   coursesService = inject(CoursesService);
   dialog = inject(MatDialog);
@@ -46,6 +49,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCourses();
+  }
+
+  ngDoCheck(): void {
+    // console.log('*** Change Detection Cycle Start From Home Component ***');
   }
   async getAllCourses() {
     const courses = await this.coursesService.getAllCourses();
@@ -86,5 +93,28 @@ export class HomeComponent implements OnInit {
   addNewCourse(course: Course) {
     const courses = [...this.courses(), course];
     this.courses.set(courses);
+  }
+
+  // Test RXJS Interop With Signals
+  onToSignal() {
+    throw new Error('Method not implemented.');
+  }
+  numbers = signal<number>(0);
+  injector = inject(Injector);
+  onToObservable() {
+    this.numbers.set(1);
+    this.numbers.set(2);
+    this.numbers.set(3);
+    this.numbers.set(4);
+    toObservable(this.numbers, {
+      injector: this.injector,
+    })
+      .pipe(finalize(() => console.log('Signal Subscription Destroyed')))
+      .subscribe((data) => console.log('Numbers => ', data));
+    this.numbers.set(5);
+    this.numbers.set(6);
+    setTimeout(() => {
+      this.numbers.set(7);
+    }, 1000);
   }
 }
