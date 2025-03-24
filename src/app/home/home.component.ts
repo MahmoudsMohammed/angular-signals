@@ -171,4 +171,8 @@ export class HomeComponent implements OnInit, DoCheck {
       this.number.set(i);
     }
   }
+
+  onEmitInterval($event: number) {
+    // console.log('Interval Is ===> ', $event);
+  }
 }
