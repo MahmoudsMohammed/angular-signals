@@ -22,6 +22,8 @@ import {
   finalize,
   from,
   interval,
+  Observable,
+  startWith,
   Subscription,
   throwError,
 } from 'rxjs';
@@ -54,7 +56,9 @@ export class HomeComponent implements OnInit, DoCheck {
     return this.courses().filter((course) => course.category === 'ADVANCED');
   });
 
-  constructor() {}
+  constructor() {
+    effect(() => console.log('Number Value Is ===> ', this.number()));
+  }
 
   ngOnInit(): void {
     this.getAllCourses();
@@ -105,8 +109,25 @@ export class HomeComponent implements OnInit, DoCheck {
   }
 
   // Test RXJS Interop With Signals
+  // courses$ = from(this.coursesService.getAllCourses()).pipe(
+  //   finalize(() => console.log('the courses observable subscription end :)'))
+  // );
   onToSignal() {
-    throw new Error('Method not implemented.');
+    // How Handle inital value ??
+    // initialValue: 0, // to provide signal inital value manual
+    // requireSync: true, // force source observable to provide inital value
+    // How Handle Errors ??
+    // Handle From Source Observable
+    // rejectErrors: true // to make toSignal refuse error as value
+    // How Handle Destroy Subscription of Source Observable ?
+    // Define the injection context to destroy subscription auto when this context destroyed
+    // manualCleanup: true // to clean up the subscription manually
+    const courses = toSignal(this.interval$, {
+      injector: this.injector, // define the injection context manual
+      initialValue: 0,
+      rejectErrors: true,
+      manualCleanup: true,
+    });
   }
   numbers = signal<number>(0);
   injector = inject(Injector);
@@ -126,9 +147,13 @@ export class HomeComponent implements OnInit, DoCheck {
       this.numbers.set(7);
     }, 1000);
   }
-
-  interval$ = interval(1000);
   destroyRef = inject(DestroyRef);
+  interval$ = interval(1000).pipe(
+    startWith(0),
+    finalize(() => console.log('The Interval CleanUp')),
+    takeUntilDestroyed(this.destroyRef)
+  );
+
   onSubscribe() {
     this.interval$
       .pipe(
@@ -136,5 +161,14 @@ export class HomeComponent implements OnInit, DoCheck {
         finalize(() => console.log('Subscribe to Interval Completed'))
       )
       .subscribe(console.log);
+  }
+
+  // Test Signal Stability and Effect & Computed Trigger
+  number = signal<number>(0);
+  doubleNumber = computed(() => 2 * this.number());
+  onIncrementNumber() {
+    for (let i = 0; i <= 5; i++) {
+      this.number.set(i);
+    }
   }
 }

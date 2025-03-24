@@ -7,7 +7,12 @@
   <div class="actions">
     <button class="btn" (click)="onToObservable()">toObservable</button>
     <button class="btn" (click)="onToSignal()">toSignal</button>
-    <button class="btn" (click)="onSubscribe()">Clean Up</button>
+    <!-- <button class="btn" (click)="onSubscribe()">Clean Up</button> -->
+    <button class="btn" (click)="onIncrementNumber()">Stability</button>
+    <br />
+    <br />
+    <span>Number {{ number() }}</span> ====>
+    <span>Double Number {{ doubleNumber() }}</span>
   </div>
 
   <mat-tab-group>
