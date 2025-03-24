@@ -12,9 +12,10 @@ import { Course } from '../models/course.model';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { openDialog } from '../edit-course-dialog/edit-course-dialog.component';
-import { map, finalize, interval, tap } from 'rxjs';
+import { map, finalize, interval, tap, distinctUntilChanged } from 'rxjs';
 import {
   outputFromObservable,
+  outputToObservable,
   takeUntilDestroyed,
 } from '@angular/core/rxjs-interop';
 
@@ -33,12 +34,19 @@ export class CoursesCardListComponent implements OnInit {
   updatedCourse = output<Course>();
   deleteCourse = output<string>();
   interval$ = interval(1000).pipe(
-    tap((value: number) => console.log(value)),
     finalize(() => console.log('Course Card List Interval Destroyed'))
   );
   intervalEvent = outputFromObservable(this.interval$);
+  intervalObservable = outputToObservable(this.intervalEvent);
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.intervalObservable
+      .pipe(
+        tap((data) => console.log('from to Observable ===> ', data)),
+        distinctUntilChanged()
+      )
+      .subscribe(console.log);
+  }
 
   async onEdit(course: Course) {
     const data = await openDialog(this.dialog, {
