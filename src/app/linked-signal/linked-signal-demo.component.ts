@@ -1,4 +1,10 @@
-import { Component, effect, linkedSignal, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  linkedSignal,
+  signal,
+} from '@angular/core';
 import { testCourse } from '../models/course.model';
 
 @Component({
@@ -25,21 +31,43 @@ export class LinkedSignalDemoComponent {
     },
   ];
 
+  test = signal<number>(2);
+
   selectedCourse = signal<string | null>('BEGINNERS');
 
-  quantity = signal<number>(0);
+  quantity = linkedSignal<{ code: string | null; test: number }, number>({
+    source: () => ({ code: this.selectedCourse(), test: this.test() }),
+    computation: (source, previous) => {
+      console.log('previous ===> ', previous);
+      return (
+        this.courses.find((course) => course.code === source?.code)
+          ?.defaultQuantity || 0
+      );
+    },
+  });
+
+  //  Test Equal
+
+  activeUser = signal({ id: 123, name: 'Morgan', isAdmin: true });
+  activeUserEditCopy = linkedSignal(() => this.activeUser(), {
+    // Consider the user as the same if it's the same `id`.
+    equal: (a, b) => a.id === b.id,
+  });
+  // Or, if separating `source` and `computation`
+  // activeUserEditCopy = linkedSignal({
+  //   source: activeUser,
+  //   computation: (user) => user,
+  //   equal: (a, b) => a.id === b.id,
+  // });
 
   constructor() {
     effect(() => {
-      const quantity = this.courses.find(
-        (course: testCourse) => course.code === this.selectedCourse()
-      )?.defaultQuantity;
-      this.quantity.set(quantity || 0);
+      console.log('Active User ===> ', this.activeUserEditCopy());
     });
   }
 
   onQuantityChanged(quantity: string) {
-    this.quantity.set(parseInt(quantity));
+    this.quantity.set(+quantity);
   }
 
   onArticleAdded() {
@@ -48,5 +76,9 @@ export class LinkedSignalDemoComponent {
 
   onCourseSelected(courseCode: string) {
     this.selectedCourse.set(courseCode);
+  }
+
+  onChange() {
+    this.activeUser.set({ id: 123, name: 'Loool', isAdmin: true });
   }
 }
