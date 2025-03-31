@@ -2,10 +2,14 @@ import {
   Component,
   computed,
   effect,
+  input,
   linkedSignal,
   signal,
+  viewChild,
 } from '@angular/core';
 import { testCourse } from '../models/course.model';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'linked-signal-demo',
@@ -46,26 +50,6 @@ export class LinkedSignalDemoComponent {
     },
   });
 
-  //  Test Equal
-
-  activeUser = signal({ id: 123, name: 'Morgan', isAdmin: true });
-  activeUserEditCopy = linkedSignal(() => this.activeUser(), {
-    // Consider the user as the same if it's the same `id`.
-    equal: (a, b) => a.id === b.id,
-  });
-  // Or, if separating `source` and `computation`
-  // activeUserEditCopy = linkedSignal({
-  //   source: activeUser,
-  //   computation: (user) => user,
-  //   equal: (a, b) => a.id === b.id,
-  // });
-
-  constructor() {
-    effect(() => {
-      console.log('Active User ===> ', this.activeUserEditCopy());
-    });
-  }
-
   onQuantityChanged(quantity: string) {
     this.quantity.set(+quantity);
   }
@@ -76,9 +60,5 @@ export class LinkedSignalDemoComponent {
 
   onCourseSelected(courseCode: string) {
     this.selectedCourse.set(courseCode);
-  }
-
-  onChange() {
-    this.activeUser.set({ id: 123, name: 'Loool', isAdmin: true });
   }
 }

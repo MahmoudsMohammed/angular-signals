@@ -9,7 +9,9 @@
   max-width: 400px;
   margin: 0 auto;
 }
-
+h1 {
+  text-align: center;
+}
 .loading {
   margin: 30px auto;
 }
@@ -33,4 +35,18 @@
 .no-lessons {
   margin: 20px auto;
   text-align: center;
+}
+%center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.actions {
+  @extend %center;
+  gap: 15px;
+}
+
+.loader {
+  @extend %center;
+  margin-top: 20px;
 }
